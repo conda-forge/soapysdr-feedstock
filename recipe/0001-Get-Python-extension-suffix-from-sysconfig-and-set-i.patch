@@ -1,0 +1,48 @@
+From 99a022616d49520a7352aee7472ea8674c71bdfd Mon Sep 17 00:00:00 2001
+From: Ryan Volz <rvolz@mit.edu>
+Date: Thu, 11 Jun 2020 18:48:05 -0400
+Subject: [PATCH] Get Python extension suffix from sysconfig and set it on the
+ extension.
+
+---
+ python/CMakeLists.txt | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/python/CMakeLists.txt b/python/CMakeLists.txt
+index 9776198..48ea431 100644
+--- a/python/CMakeLists.txt
++++ b/python/CMakeLists.txt
+@@ -36,6 +36,17 @@ execute_process(
+ set(PYTHON_INSTALL_DIR "${PYTHON_INSTALL_DIR_SYSCONF}" CACHE STRING "python install prefix")
+ message(STATUS "PYTHON_INSTALL_DIR: \${prefix}/${PYTHON_INSTALL_DIR}")
+ 
++########################################################################
++# Determine python extension suffix
++########################################################################
++execute_process(
++    COMMAND ${PYTHON_EXECUTABLE} -c "import sysconfig; print(sysconfig.get_config_var('EXT_SUFFIX'))"
++    OUTPUT_STRIP_TRAILING_WHITESPACE
++    OUTPUT_VARIABLE Python_SOABI
++)
++set(PYTHON_EXT_SUFFIX "${Python_SOABI}" CACHE STRING "python extension suffix")
++message(STATUS "PYTHON_EXT_SUFFIX: ${PYTHON_EXT_SUFFIX}")
++
+ ########################################################################
+ # Find Python libs
+ ########################################################################
+@@ -159,6 +170,12 @@ endif()
+ 
+ SWIG_LINK_LIBRARIES(SoapySDR ${SoapySDR_LIBRARIES} ${PYTHON_LIBRARIES})
+ 
++if (PYTHON_EXT_SUFFIX)
++    set_target_properties(${SWIG_MODULE_SoapySDR_REAL_NAME} PROPERTIES
++        SUFFIX ${PYTHON_EXT_SUFFIX}
++    )
++endif()
++
+ ########################################################################
+ # Install Module
+ ########################################################################
+-- 
+2.27.0
+
