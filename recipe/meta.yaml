@@ -42,7 +42,6 @@ test:
     - if not exist %PREFIX%\\Library\\bin\\{{ name }}.dll exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ name }}.lib exit 1  # [win]
   imports:
-    - _SoapySDR  # [not win]
     - SoapySDR  # [not win]
 
 about:
