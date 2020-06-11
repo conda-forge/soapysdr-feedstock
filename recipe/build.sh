@@ -20,6 +20,14 @@ cmake_config_args=(
     -DENABLE_TESTS=ON
 )
 
+if [[ $python_impl == "pypy" ]] ; then
+    # we need to help cmake find pypy
+    cmake_config_args+=(
+        -DPYTHON_LIBRARY=$PREFIX/lib/libpypy3-c$SHLIB_EXT
+        -DPYTHON_INCLUDE_DIR=$PREFIX/include
+    )
+fi
+
 cmake .. "${cmake_config_args[@]}"
 cmake --build . --config Release -- -j${CPU_COUNT}
 ctest --output-on-failure
