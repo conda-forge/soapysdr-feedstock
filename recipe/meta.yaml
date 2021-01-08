@@ -12,7 +12,7 @@ source:
     - 0001-Get-Python-extension-suffix-from-sysconfig-and-set-i.patch
 
 build:
-  number: 2
+  number: 3
   run_exports:
     - {{ pin_subpackage('soapysdr', max_pin='x.x') }}
 
