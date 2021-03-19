@@ -12,7 +12,7 @@ source:
     - 0001-Get-Python-extension-suffix-from-sysconfig-and-set-i.patch
 
 build:
-  number: 3
+  number: 4
   run_exports:
     - {{ pin_subpackage('soapysdr', max_pin='x.x') }}
 
@@ -44,7 +44,7 @@ test:
     - if not exist %PREFIX%\\Library\\bin\\{{ name }}.dll exit 1  # [win]
     - if not exist %PREFIX%\\Library\\lib\\{{ name }}.lib exit 1  # [win]
   imports:
-    - SoapySDR  # [not win]
+    - SoapySDR
 
 about:
   home: https://github.com/pothosware/SoapySDR/wiki
