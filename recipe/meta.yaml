@@ -1,5 +1,5 @@
 {% set name = "SoapySDR" %}
-{% set version = "0.7.2" %}
+{% set version = "0.8.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,12 +7,12 @@ package:
 
 source:
   url: https://github.com/pothosware/{{ name }}/archive/soapy-sdr-{{ version }}.tar.gz
-  sha256: 6eb4143fed115911884bdbbe6fe32dbd99b4ada210c9e126ac3c49c24414347a
+  sha256: cff3b1fb1cd3b88932f37df42f69fc3d8e0ea42f4788b35131ceaf5d1b908ac2
   patches:
     - 0001-Get-Python-extension-suffix-from-sysconfig-and-set-i.patch
 
 build:
-  number: 4
+  number: 0
   run_exports:
     - {{ pin_subpackage('soapysdr', max_pin='x.x') }}
 
@@ -50,7 +50,7 @@ about:
   home: https://github.com/pothosware/SoapySDR/wiki
   license: BSL-1.0
   license_file: LICENSE_1_0.txt
-  summary: 'Vendor and platform neutral SDR support library'
+  summary: Vendor and platform neutral SDR support library
   description: |
     SoapySDR is an open-source generalized API and runtime library for interfacing with
     SDR devices. With SoapySDR, you can instantiate, configure, and stream with an SDR
