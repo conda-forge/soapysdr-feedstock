@@ -1,5 +1,5 @@
 {% set name = "SoapySDR" %}
-{% set version = "0.8.0" %}
+{% set version = "0.8.1" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://github.com/pothosware/{{ name }}/archive/soapy-sdr-{{ version }}.tar.gz
-  sha256: cff3b1fb1cd3b88932f37df42f69fc3d8e0ea42f4788b35131ceaf5d1b908ac2
+  sha256: a508083875ed75d1090c24f88abef9895ad65f0f1b54e96d74094478f0c400e6
   patches:
     - 0001-Get-Python-extension-suffix-from-sysconfig-and-set-i.patch
 
