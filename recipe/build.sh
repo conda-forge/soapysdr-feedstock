@@ -23,14 +23,14 @@ cmake_config_args=(
 if [[ $python_impl == "pypy" ]] ; then
     # we need to help cmake find pypy
     cmake_config_args+=(
-        -DPYTHON_LIBRARY=$PREFIX/lib/libpypy3-c$SHLIB_EXT
-        -DPYTHON_INCLUDE_DIR=$PREFIX/include
+        -DPYTHON_LIBRARY=$PREFIX/lib/`$PYTHON -c "import sysconfig; print(sysconfig.get_config_var('LDLIBRARY'))"`
+        -DPYTHON_INCLUDE_DIR=`$PYTHON -c "import sysconfig; print(sysconfig.get_paths()['include'])"`
     )
 fi
 
 cmake ${CMAKE_ARGS} .. "${cmake_config_args[@]}"
 cmake --build . --config Release -- -j${CPU_COUNT}
-if [[ "${CONDA_BUILD_CROSS_COMPILATION}" != "1" ]]; then
+if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
 ctest --output-on-failure
 fi
 cmake --build . --config Release --target install
