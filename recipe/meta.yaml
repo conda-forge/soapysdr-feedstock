@@ -10,9 +10,10 @@ source:
   sha256: a508083875ed75d1090c24f88abef9895ad65f0f1b54e96d74094478f0c400e6
   patches:
     - 0001-Get-Python-extension-suffix-from-sysconfig-and-set-i.patch
+    - 0002-Remove-deprecated-use-of-distutils-fix-for-Python-3..patch
 
 build:
-  number: 3
+  number: 4
   run_exports:
     - {{ pin_subpackage('soapysdr', max_pin='x.x') }}
 
