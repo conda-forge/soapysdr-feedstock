@@ -1,3 +1,5 @@
+c_stdlib:
+- vs
 channel_sources:
 - conda-forge
 channel_targets:
@@ -9,9 +11,9 @@ pin_run_as_build:
     min_pin: x.x
     max_pin: x.x
 python:
-- 3.9.* *_73_pypy
+- 3.9.* *_cpython
 python_impl:
-- pypy
+- cpython
 target_platform:
 - win-64
 zip_keys:
