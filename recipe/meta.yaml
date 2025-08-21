@@ -13,7 +13,7 @@ source:
     - 0002-Remove-deprecated-use-of-distutils-fix-for-Python-3..patch
 
 build:
-  number: 5
+  number: 6
   run_exports:
     - {{ pin_subpackage('soapysdr', max_pin='x.x') }}
 
