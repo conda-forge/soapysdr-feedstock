@@ -1,7 +1,7 @@
 c_stdlib:
 - vs
 channel_sources:
-- conda-forge,conda-forge/label/python_rc
+- conda-forge
 channel_targets:
 - conda-forge main
 cxx_compiler:
@@ -18,6 +18,3 @@ soapysdr:
 - '0.8'
 target_platform:
 - win-64
-zip_keys:
-- - python
-  - channel_sources
