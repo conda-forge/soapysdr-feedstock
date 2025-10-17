@@ -5,7 +5,7 @@ channel_sources:
 channel_targets:
 - conda-forge main
 cxx_compiler:
-- vs2019
+- vs2022
 pin_run_as_build:
   python:
     min_pin: x.x
@@ -14,9 +14,7 @@ python:
 - 3.11.* *_cpython
 python_impl:
 - cpython
+soapysdr:
+- '0.8'
 target_platform:
 - win-64
-zip_keys:
-- - python
-  - python_impl
-  - channel_sources
