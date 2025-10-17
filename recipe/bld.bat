@@ -20,6 +20,7 @@ cmake -G "Ninja" ^
     -DENABLE_LIBRARY=ON ^
     -DENABLE_PYTHON=ON ^
     -DENABLE_TESTS=ON ^
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 ^
     ..
 if errorlevel 1 exit 1
 

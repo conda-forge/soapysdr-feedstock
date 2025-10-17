@@ -18,6 +18,7 @@ cmake_config_args=(
     -DENABLE_LIBRARY=ON
     -DENABLE_PYTHON=ON
     -DENABLE_TESTS=ON
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 )
 
 if [[ $python_impl == "pypy" ]] ; then
