@@ -11,6 +11,8 @@ cmake_config_args=(
     -DCMAKE_INSTALL_PREFIX=$PREFIX
     -DCMAKE_INSTALL_LIBDIR=lib
     -DPYTHON_EXECUTABLE=$PYTHON
+    -DPYTHON_LIBRARY=$PREFIX/lib/`$PYTHON -c "import sysconfig; print(sysconfig.get_config_var('LDLIBRARY'))"`
+    -DPYTHON_INCLUDE_DIR=`$PYTHON -c "import sysconfig; print(sysconfig.get_paths()['include'])"`
     -DSOAPY_SDR_EXTVER=$PKG_BUILDNUM
     -DSOAPY_SDR_ROOT_ENV="CONDA_PREFIX"
     -DENABLE_APPS=ON
@@ -20,14 +22,6 @@ cmake_config_args=(
     -DENABLE_TESTS=ON
     -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 )
-
-if [[ $python_impl == "pypy" ]] ; then
-    # we need to help cmake find pypy
-    cmake_config_args+=(
-        -DPYTHON_LIBRARY=$PREFIX/lib/`$PYTHON -c "import sysconfig; print(sysconfig.get_config_var('LDLIBRARY'))"`
-        -DPYTHON_INCLUDE_DIR=`$PYTHON -c "import sysconfig; print(sysconfig.get_paths()['include'])"`
-    )
-fi
 
 cmake ${CMAKE_ARGS} .. "${cmake_config_args[@]}"
 cmake --build . --config Release -- -j${CPU_COUNT}
