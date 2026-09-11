@@ -29,6 +29,9 @@ requirements:
     - python                              # [build_platform != target_platform]
     - cross-python_{{ target_platform }}  # [build_platform != target_platform]
   host:
+    # CMake uses FindPythonLibs, which needs the shared library even though
+    # it does not get linked, and since Python 3.15 this is a separate package
+    - libpython
     - python
   run:
     - python
