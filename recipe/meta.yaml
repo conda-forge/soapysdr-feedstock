@@ -1,5 +1,5 @@
 {% set name = "SoapySDR" %}
-{% set version = "0.8.1" %}
+{% set version = "0.9.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,13 +7,13 @@ package:
 
 source:
   url: https://github.com/pothosware/{{ name }}/archive/soapy-sdr-{{ version }}.tar.gz
-  sha256: a508083875ed75d1090c24f88abef9895ad65f0f1b54e96d74094478f0c400e6
+  sha256: 64f97c1ad241156fe299acb8902169019eab34517cd580b563968a43d7533509
   patches:
     - 0001-Get-Python-extension-suffix-from-sysconfig-and-set-i.patch
     - 0002-Remove-deprecated-use-of-distutils-fix-for-Python-3..patch
 
 build:
-  number: 7
+  number: 0
   run_exports:
     - {{ pin_subpackage('soapysdr', max_pin='x.x') }}
 
