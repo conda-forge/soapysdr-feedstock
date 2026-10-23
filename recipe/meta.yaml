@@ -8,6 +8,8 @@ package:
 source:
   url: https://github.com/pothosware/{{ name }}/archive/soapy-sdr-{{ version }}.tar.gz
   sha256: 64f97c1ad241156fe299acb8902169019eab34517cd580b563968a43d7533509
+  patches:
+    - 0001-Use-full-Python-extension-suffix-for-the-module.patch
 
 build:
   number: 0

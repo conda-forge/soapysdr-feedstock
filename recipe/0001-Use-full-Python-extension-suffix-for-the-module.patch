@@ -1,0 +1,28 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ryan Volz <ryan.volz@gmail.com>
+Date: Fri, 23 Oct 2026 13:04:10 -0400
+Subject: [PATCH] Use full Python extension suffix for the module
+
+---
+ swig/python/CMakeLists.txt | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/swig/python/CMakeLists.txt b/swig/python/CMakeLists.txt
+index 30b5c56..54cc9a7 100644
+--- a/swig/python/CMakeLists.txt
++++ b/swig/python/CMakeLists.txt
+@@ -122,6 +122,11 @@ function(BUILD_PYTHON_MODULE PYTHON_VERSION)
+     endif()
+ 
+     target_include_directories(${SWIG_MODULE_SoapySDR${PYTHON_VERSION}_REAL_NAME} PRIVATE ${python_includes})
++    if (${PYTHON_VERSION} EQUAL 3)
++        set_target_properties(${SWIG_MODULE_SoapySDR${PYTHON_VERSION}_REAL_NAME} PROPERTIES
++            SUFFIX ${Python3_SOABI}
++        )
++    endif()
+     SWIG_LINK_LIBRARIES(SoapySDR${PYTHON_VERSION} ${python_libraries})
+ 
+     set(get_python_lib ${SOAPYSDR_PYTHON_DIR}/get_python_lib.py)
+-- 
+2.51.0
+
