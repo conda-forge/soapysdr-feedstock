@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ryan Volz <ryan.volz@gmail.com>
+Date: Fri, 23 Oct 2026 13:04:10 -0400
+Subject: [PATCH] Use full Python extension suffix for the module
+
+---
+ swig/python/CMakeLists.txt | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/swig/python/CMakeLists.txt b/swig/python/CMakeLists.txt
+index 30b5c56..920b88a 100644
+--- a/swig/python/CMakeLists.txt
++++ b/swig/python/CMakeLists.txt
+@@ -104,6 +104,15 @@ function(BUILD_PYTHON_MODULE PYTHON_VERSION)
+ 
+     set_target_properties(${SWIG_MODULE_SoapySDR${PYTHON_VERSION}_REAL_NAME} PROPERTIES OUTPUT_NAME _SoapySDR)
+ 
++    execute_process(
++        COMMAND ${Python${PYTHON_VERSION}_EXECUTABLE} -c "import sysconfig; print(sysconfig.get_config_var('EXT_SUFFIX'))"
++        OUTPUT_STRIP_TRAILING_WHITESPACE
++        OUTPUT_VARIABLE Python${PYTHON_VERSION}_SOABI
++    )
++    set(Python${PYTHON_VERSION}_EXT_SUFFIX "${Python${PYTHON_VERSION}_SOABI}" CACHE STRING "python${PYTHON_VERSION} extension suffix")
++    message(STATUS "Python${PYTHON_VERSION}_EXT_SUFFIX: ${Python${PYTHON_VERSION}_EXT_SUFFIX}")
++    set_target_properties(${SWIG_MODULE_SoapySDR${PYTHON_VERSION}_REAL_NAME} PROPERTIES SUFFIX ${Python${PYTHON_VERSION}_EXT_SUFFIX})
++
+     if(${SWIG_VERSION} VERSION_GREATER "4.0.0")
+         set_target_properties(${SWIG_MODULE_SoapySDR${PYTHON_VERSION}_REAL_NAME} PROPERTIES SWIG_COMPILE_OPTIONS -doxygen)
+     endif()
+-- 
+2.51.0
+

@@ -13,13 +13,7 @@ Development: https://github.com/pothosware/SoapySDR
 
 Documentation: https://github.com/pothosware/SoapySDR/wiki
 
-SoapySDR is an open-source generalized API and runtime library for interfacing with
-SDR devices. With SoapySDR, you can instantiate, configure, and stream with an SDR
-device in a variety of environments. Most off the shelf SDR hardware platforms are
-supported by SoapySDR, and many open source applications rely on SoapySDR for
-hardware integration support. In additon, SoapySDR has bindings for development
-frameworks like GNU Radio and Pothos.
-
+SoapySDR is an open-source generalized API and runtime library for interfacing with SDR devices. With SoapySDR, you can instantiate, configure, and stream with an SDR device in a variety of environments. Most off the shelf SDR hardware platforms are supported by SoapySDR, and many open source applications rely on SoapySDR for hardware integration support. In additon, SoapySDR has bindings for development frameworks like GNU Radio and Pothos.
 
 Current build status
 ====================
@@ -222,6 +216,7 @@ mamba repoquery depends soapysdr --channel conda-forge
 </details>
 
 
+
 About conda-forge
 =================
 
@@ -236,9 +231,7 @@ for each of the installable packages. Such a repository is known as a *feedstock
 A feedstock is made up of a conda recipe (the instructions on what and how to build
 the package) and the necessary configurations for automatic building using freely
 available continuous integration services. Thanks to the awesome service provided by
-[Azure](https://azure.microsoft.com/en-us/services/devops/), [GitHub](https://github.com/),
-[CircleCI](https://circleci.com/), [AppVeyor](https://www.appveyor.com/),
-[Drone](https://cloud.drone.io/welcome), and [TravisCI](https://travis-ci.com/)
+[Azure](https://azure.microsoft.com/en-us/services/devops/) and [GitHub](https://github.com/)
 it is possible to build and upload installable packages to the
 [conda-forge](https://anaconda.org/conda-forge) [anaconda.org](https://anaconda.org/)
 channel for Linux, Windows and OSX respectively.

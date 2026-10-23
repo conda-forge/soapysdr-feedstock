@@ -18,12 +18,5 @@ pin_run_as_build:
     max_pin: x.x
 python:
 - 3.11.* *_cpython
-python_impl:
-- cpython
-soapysdr:
-- '0.8'
 target_platform:
 - linux-ppc64le
-zip_keys:
-- - python
-  - channel_sources

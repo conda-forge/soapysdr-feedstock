@@ -1,0 +1,85 @@
+schema_version: 1
+
+context:
+  version: "0.9.0"
+
+package:
+  name: soapysdr
+  version: ${{ version }}
+
+source:
+  url: https://github.com/pothosware/SoapySDR/archive/soapy-sdr-${{ version }}.tar.gz
+  sha256: 64f97c1ad241156fe299acb8902169019eab34517cd580b563968a43d7533509
+  patches:
+    - 0001-Use-full-Python-extension-suffix-for-the-module.patch
+    - 0002-cmake-Add-option-to-specify-Python-module-installati.patch
+
+build:
+  number: 0
+
+requirements:
+  build:
+    - ${{ compiler("cxx") }}
+    - ${{ stdlib("c") }}
+    - cmake
+    - ninja
+    - swig
+    # cross-compilation dependencies
+    - if: build_platform != target_platform
+      then:
+        - python
+        - cross-python_${{ target_platform }}
+  host:
+    # Since Python 3.15 libpython is a separate package, and apparently this
+    # SWIG binding links to it unlike a typical Python extension module
+    - libpython
+    - python
+  run:
+    - libpython
+    - python
+  run_exports:
+    - ${{ pin_subpackage("soapysdr", upper_bound="x.x") }}
+
+tests:
+  - package_contents:
+      strict: true
+      bin:
+        - SoapySDRUtil
+      include:
+        - SoapySDR/**
+        - SoapySDR/Version.h
+        - SoapySDR/Version.hpp
+      lib:
+        - SoapySDR
+      files:
+        - ${{ "Lib/" if (win and match(python, "<3.15")) else "lib/python*" }}site-packages/*SoapySDR*
+        - ${{ "Library/" if win }}lib/pkgconfig/SoapySDR.pc
+        - ${{ "Library/" if win }}share/man/man1/SoapySDRUtil.1
+        - if: unix
+          then: share/cmake/SoapySDR/*.cmake
+          else: Library/cmake/SoapySDR*.cmake
+  - script:
+      - SoapySDRUtil --info
+  - python:
+      imports:
+        - SoapySDR
+      pip_check: false
+
+about:
+  license: BSL-1.0
+  license_file: LICENSE_1_0.txt
+  summary: Vendor and platform neutral SDR support library
+  description: >
+    SoapySDR is an open-source generalized API and runtime library for interfacing with
+    SDR devices. With SoapySDR, you can instantiate, configure, and stream with an SDR
+    device in a variety of environments. Most off the shelf SDR hardware platforms are
+    supported by SoapySDR, and many open source applications rely on SoapySDR for
+    hardware integration support. In additon, SoapySDR has bindings for development
+    frameworks like GNU Radio and Pothos.
+  homepage: https://github.com/pothosware/SoapySDR/wiki
+  repository: https://github.com/pothosware/SoapySDR
+  documentation: https://github.com/pothosware/SoapySDR/wiki
+
+extra:
+  recipe-maintainers:
+    - ryanvolz

@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ryan Volz <ryan.volz@gmail.com>
+Date: Fri, 23 Oct 2026 14:04:35 -0400
+Subject: [PATCH] cmake: Add option to specify Python module installation
+ directory
+
+---
+ swig/python/CMakeLists.txt | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/swig/python/CMakeLists.txt b/swig/python/CMakeLists.txt
+index 920b88a..e3fc5e1 100644
+--- a/swig/python/CMakeLists.txt
++++ b/swig/python/CMakeLists.txt
+@@ -142,15 +142,17 @@ function(BUILD_PYTHON_MODULE PYTHON_VERSION)
+         COMMAND ${Python${PYTHON_VERSION}_EXECUTABLE} ${get_python_lib} ${CMAKE_INSTALL_PREFIX}
+         OUTPUT_STRIP_TRAILING_WHITESPACE
+         OUTPUT_VARIABLE PYTHON_INSTALL_DIR)
++    set(Python${PYTHON_VERSION}_INSTALL_DIR "${PYTHON_INSTALL_DIR}" CACHE STRING "python${PYTHON_VERSION} module installation directory")
++    message(STATUS "Python${PYTHON_VERSION}_INSTALL_DIR: ${Python${PYTHON_VERSION}_INSTALL_DIR}")
+ 
+     install(
+         TARGETS ${SWIG_MODULE_SoapySDR${PYTHON_VERSION}_REAL_NAME}
+-        DESTINATION ${PYTHON_INSTALL_DIR}
++        DESTINATION ${Python${PYTHON_VERSION}_INSTALL_DIR}
+     )
+ 
+     install(
+         FILES ${CMAKE_CURRENT_BINARY_DIR}/SoapySDR.py
+-        DESTINATION ${PYTHON_INSTALL_DIR}
++        DESTINATION ${Python${PYTHON_VERSION}_INSTALL_DIR}
+     )
+ endfunction()
+ 
+-- 
+2.51.0
+

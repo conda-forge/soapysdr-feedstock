@@ -10,13 +10,14 @@ cmake_config_args=(
     -DCMAKE_BUILD_TYPE=Release
     -DCMAKE_INSTALL_PREFIX=$PREFIX
     -DCMAKE_INSTALL_LIBDIR=lib
-    -DPYTHON_EXECUTABLE=$PYTHON
+    -DPython3_EXECUTABLE=$PYTHON
     -DSOAPY_SDR_EXTVER=$PKG_BUILDNUM
     -DSOAPY_SDR_ROOT_ENV="CONDA_PREFIX"
     -DENABLE_APPS=ON
     -DENABLE_DOCS=OFF
     -DENABLE_LIBRARY=ON
-    -DENABLE_PYTHON=ON
+    -DENABLE_PYTHON2=OFF
+    -DENABLE_PYTHON3=ON
     -DENABLE_TESTS=ON
     -DCMAKE_POLICY_VERSION_MINIMUM=3.5
 )
@@ -29,7 +30,7 @@ if [[ $python_impl == "pypy" ]] ; then
     )
 fi
 
-cmake ${CMAKE_ARGS} .. "${cmake_config_args[@]}"
+cmake ${CMAKE_ARGS} -G "Ninja" .. "${cmake_config_args[@]}"
 cmake --build . --config Release -- -j${CPU_COUNT}
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
 ctest --output-on-failure
