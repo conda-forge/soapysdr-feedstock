@@ -8,9 +8,6 @@ package:
 source:
   url: https://github.com/pothosware/{{ name }}/archive/soapy-sdr-{{ version }}.tar.gz
   sha256: 64f97c1ad241156fe299acb8902169019eab34517cd580b563968a43d7533509
-  patches:
-    - 0001-Get-Python-extension-suffix-from-sysconfig-and-set-i.patch
-    - 0002-Remove-deprecated-use-of-distutils-fix-for-Python-3..patch
 
 build:
   number: 0
