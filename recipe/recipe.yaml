@@ -54,8 +54,10 @@ tests:
       files:
         - ${{ "Lib/" if (win and match(python, "<3.15")) else "lib/python*" }}site-packages/*SoapySDR*
         - ${{ "Library/" if win }}lib/pkgconfig/SoapySDR.pc
-        - ${{ "Library/" if win else "share/" }}cmake/SoapySDR/*.cmake
-        - ${{ "Library/" if win }}share/man/man1/SoapySDRUtil.1
+        - ${{ "Library/" if win }}share/man/man1/SoapySDRUtil.
+        - if: unix
+          then: share/cmake/SoapySDR/*.cmake
+          else: Library/cmake/SoapySDR*.cmake
   - script:
       - SoapySDRUtil --info
   - python:
